@@ -1,0 +1,15 @@
+prompts:
+  - name: "Simple question"
+    text: "What is the capital of France?"
+    token_limit: 100  # Optional per-prompt override
+
+  - name: "Code generation"
+    text: "Write a Python function to calculate Fibonacci numbers"
+    token_limit: 500  # Optional per-prompt override
+    
+  - name: "Summarization"
+    text: "Summarize the key features of transformers in natural language processing."
+    
+  - name: "Creative writing"
+    text: "Write a short story about a robot who discovers emotions."
+    token_limit: 1000
