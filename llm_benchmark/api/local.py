@@ -42,11 +42,22 @@ class LocalEndpoint(BaseEndpoint):
         self.provider = provider.lower()
 
         # Ensure endpoint URL is properly formatted based on provider
-        if self.provider == "ollama" and "api/generate" not in endpoint_url:
-            if endpoint_url.endswith("/"):
-                self.endpoint_url = f"{endpoint_url}api/generate"
+        if self.provider == "ollama":
+            # For Ollama, the API endpoint should be /api/generate
+            # Make sure we don't have extra paths like /v1 that might cause issues
+            if "api/generate" not in endpoint_url:
+                # Strip any existing path like /v1
+                base_url = endpoint_url.rstrip("/")
+                if "/v1" in base_url:
+                    base_url = base_url.split("/v1")[0]
+                
+                # Append the correct path
+                if base_url.endswith("/"):
+                    self.endpoint_url = f"{base_url}api/generate"
+                else:
+                    self.endpoint_url = f"{base_url}/api/generate"
             else:
-                self.endpoint_url = f"{endpoint_url}/api/generate"
+                self.endpoint_url = endpoint_url
         
         self.logger.debug(f"Initialized {self.provider} endpoint at {self.endpoint_url}")
 

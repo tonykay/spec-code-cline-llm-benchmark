@@ -69,7 +69,7 @@ python llm_benchmark.py --endpoint https://api.openai.com/v1 --model gpt-3.5-tur
 
 ```bash
 # Using Ollama with llama3
-python llm_benchmark.py --endpoint http://localhost:11434/api/generate --model llama3
+python llm_benchmark.py --endpoint http://localhost:11434 --model llama3
 
 # Using vLLM with mistral-7b and token limit
 python llm_benchmark.py --endpoint http://localhost:8000/v1 --model mistral-7b --token-limit 2048

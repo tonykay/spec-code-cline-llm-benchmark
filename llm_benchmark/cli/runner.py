@@ -136,15 +136,20 @@ def run_benchmark(args: argparse.Namespace) -> None:
         
         # Aggregate results from multiple runs
         if prompt_results:
+            # Helper function to safely average metrics that might be None
+            def safe_avg(metric_name):
+                values = [r[metric_name] for r in prompt_results if r[metric_name] is not None]
+                return sum(values) / len(values) if values else None
+            
             avg_result = {
                 "prompt_name": prompt_name,
-                "ttft_ms": sum(r["ttft_ms"] for r in prompt_results) / len(prompt_results),
-                "total_time_s": sum(r["total_time_s"] for r in prompt_results) / len(prompt_results),
-                "tokens_per_second": sum(r["tokens_per_second"] for r in prompt_results) / len(prompt_results),
+                "ttft_ms": safe_avg("ttft_ms"),
+                "total_time_s": safe_avg("total_time_s"),
+                "tokens_per_second": safe_avg("tokens_per_second"),
                 "input_tokens": prompt_results[0]["input_tokens"],  # Should be the same for all runs
-                "output_tokens": sum(r["output_tokens"] for r in prompt_results) / len(prompt_results),
-                "total_tokens": sum(r["total_tokens"] for r in prompt_results) / len(prompt_results),
-                "cost_estimate": sum(r["cost_estimate"] for r in prompt_results) / len(prompt_results) if "cost_estimate" in prompt_results[0] else None,
+                "output_tokens": safe_avg("output_tokens"),
+                "total_tokens": safe_avg("total_tokens"),
+                "cost_estimate": safe_avg("cost_estimate") if any(r.get("cost_estimate") is not None for r in prompt_results) else None,
                 "runs": args.runs,
             }
             all_results.append(avg_result)
@@ -157,16 +162,21 @@ def run_benchmark(args: argparse.Namespace) -> None:
         console.print("\n[bold]Summary Metrics (Average)[/bold]")
         console.print("-" * 50)
         
+        # Helper function to safely average metrics that might be None
+        def safe_summary_avg(metric_name):
+            values = [r[metric_name] for r in all_results if r[metric_name] is not None]
+            return sum(values) / len(values) if values else None
+        
         # Calculate overall averages
         summary = {
             "prompt_name": "OVERALL AVERAGE",
-            "ttft_ms": sum(r["ttft_ms"] for r in all_results) / len(all_results),
-            "total_time_s": sum(r["total_time_s"] for r in all_results) / len(all_results),
-            "tokens_per_second": sum(r["tokens_per_second"] for r in all_results) / len(all_results),
-            "input_tokens": sum(r["input_tokens"] for r in all_results) / len(all_results),
-            "output_tokens": sum(r["output_tokens"] for r in all_results) / len(all_results),
-            "total_tokens": sum(r["total_tokens"] for r in all_results) / len(all_results),
-            "cost_estimate": sum(r.get("cost_estimate", 0) for r in all_results) if all(r.get("cost_estimate") is not None for r in all_results) else None,
+            "ttft_ms": safe_summary_avg("ttft_ms"),
+            "total_time_s": safe_summary_avg("total_time_s"),
+            "tokens_per_second": safe_summary_avg("tokens_per_second"),
+            "input_tokens": safe_summary_avg("input_tokens"),
+            "output_tokens": safe_summary_avg("output_tokens"),
+            "total_tokens": safe_summary_avg("total_tokens"),
+            "cost_estimate": safe_summary_avg("cost_estimate") if any(r.get("cost_estimate") is not None for r in all_results) else None,
             "runs": sum(r["runs"] for r in all_results),
         }
         

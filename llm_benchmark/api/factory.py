@@ -48,6 +48,12 @@ def create_endpoint(
         # Ollama typically runs on port 11434
         if "11434" in parsed_url.netloc or "ollama" in parsed_url.path:
             logger.debug(f"Creating Local endpoint (Ollama) for {model_name}")
+            # For Ollama, ensure we have a clean base URL without extra paths
+            if "/v1" in endpoint_url:
+                # If the user provides a /v1 path, strip it to get the base URL
+                base_url = endpoint_url.split("/v1")[0]
+                logger.debug(f"Adjusting Ollama URL from {endpoint_url} to {base_url}")
+                endpoint_url = base_url
             return LocalEndpoint(endpoint_url, model_name, api_key, timeout, provider="ollama")
         
         # vLLM doesn't have a standard port, but we can check path

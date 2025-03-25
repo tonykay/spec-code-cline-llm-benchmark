@@ -1,0 +1,96 @@
+LLM Benchmark: granite3.2:latest @ http://localhost:11434/v1
+==================================================
+
+Loaded 4 prompts from prompts.yaml
+Using endpoint: Local Ollama (granite3.2:latest)
+
+Running benchmark for: Simple question
+{
+  "type": "detail",
+  "results": [
+    {
+      "prompt_name": "Simple question",
+      "ttft_ms": 0.03,
+      "total_time_s": 1.6,
+      "tokens_per_second": 33.78,
+      "input_tokens": 8,
+      "output_tokens": 54.0,
+      "total_tokens": 62.0,
+      "cost_estimate": null,
+      "runs": 1
+    }
+  ]
+}
+
+Running benchmark for: Code generation
+{
+  "type": "detail",
+  "results": [
+    {
+      "prompt_name": "Code generation",
+      "ttft_ms": 0.08,
+      "total_time_s": 7.33,
+      "tokens_per_second": 38.06,
+      "input_tokens": 9,
+      "output_tokens": 279.0,
+      "total_tokens": 288.0,
+      "cost_estimate": null,
+      "runs": 1
+    }
+  ]
+}
+
+Running benchmark for: Summarization
+{
+  "type": "detail",
+  "results": [
+    {
+      "prompt_name": "Summarization",
+      "ttft_ms": 0.04,
+      "total_time_s": 10.3,
+      "tokens_per_second": 49.33,
+      "input_tokens": 12,
+      "output_tokens": 508.0,
+      "total_tokens": 520.0,
+      "cost_estimate": null,
+      "runs": 1
+    }
+  ]
+}
+
+Running benchmark for: Creative writing
+{
+  "type": "detail",
+  "results": [
+    {
+      "prompt_name": "Creative writing",
+      "ttft_ms": 0.06,
+      "total_time_s": 20.88,
+      "tokens_per_second": 36.68,
+      "input_tokens": 12,
+      "output_tokens": 766.0,
+      "total_tokens": 778.0,
+      "cost_estimate": null,
+      "runs": 1
+    }
+  ]
+}
+
+Summary Metrics (Average)
+--------------------------------------------------
+{
+  "type": "summary",
+  "results": [
+    {
+      "prompt_name": "OVERALL AVERAGE",
+      "ttft_ms": 0.0525,
+      "total_time_s": 10.0275,
+      "tokens_per_second": 39.4625,
+      "input_tokens": 10.25,
+      "output_tokens": 401.75,
+      "total_tokens": 412.0,
+      "cost_estimate": null,
+      "runs": 4
+    }
+  ]
+}
