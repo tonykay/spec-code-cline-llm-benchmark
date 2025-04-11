@@ -1,0 +1,42 @@
+# Project Guidelines
+
+## Documentation Requirements
+
+-   Update relevant documentation in /docs when modifying features
+-   Keep README.md in sync with new capabilities
+-   Maintain changelog entries in CHANGELOG.md
+
+## Code Style & Patterns
+
+-   Use Python throughout non Ansible coding projects
+-   Python should ideally be 3.12 or fall back to 3.11
+-   Use snake_case for variable names
+-   Avoid pyenv, anaconda, conda, poetry or virtualenv
+-   venv should be used for development eg `python3.12 -m venv venv`
+-   Maintain an up-to-date requirements.txt file
+-   Simple projects can use `pip`
+-   Complex projects can use `uv`
+-   Use pytest for testing
+-   Use black for code formatting
+-   Use flake8 for linting
+-   Prefer composition over inheritance
+-   All yaml lists must be indented except for Kubernetes and OpenShift manifests
+-   All yaml dictionaries must be indented
+-   All ansible tasks must use Fully Qualified Collection Names eg `ansible.builtin.get_url`
+
+## AI Assumptions
+
+-   Assume ollama is used for LLMs by default
+-   Assume openai is supported for LLMs by default
+-   Assume OpenAI API
+-   Assume Production will use vLLM
+-   Avoid LangChain    
+-   Avoid LangGraph
+-   Use OpenAI Agent SDK when required    
+-   Use Model Context Protocol (MCP) when appropriate
+
+## Testing Standards
+
+-   Unit tests required for business logic
+-   Integration tests for API endpoints
+-   E2E tests for critical user flows

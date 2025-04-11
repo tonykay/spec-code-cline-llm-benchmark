@@ -6,6 +6,8 @@ ENV/
 .venv
 virtualenv/
 
+.ruff_cache
+
 # Python bytecode
 __pycache__/
 *.py[cod]
